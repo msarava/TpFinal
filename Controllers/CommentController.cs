@@ -1,4 +1,6 @@
-﻿using LeBonCoin_Toulouse.Repositories;
+﻿using LeBonCoin_Toulouse.DTOs;
+using LeBonCoin_Toulouse.Repositories;
+using LeBonCoin_Toulouse.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LeBonCoin_Toulouse.Controllers
@@ -7,11 +9,11 @@ namespace LeBonCoin_Toulouse.Controllers
     [ApiController]
     public class CommentController : Controller
     {
-        private CommentRepository _commentRepository;
+        private CommentService _commentService;
 
-        public CommentController(CommentRepository commentRepository)
+        public CommentController(CommentService commentService)
         {
-            _commentRepository = commentRepository;
+            _commentService = commentService;
         }
 
         public IActionResult Get()
@@ -19,6 +21,19 @@ namespace LeBonCoin_Toulouse.Controllers
 
             //TODO: Add services
             return View();
+        }
+
+        public IActionResult Post([FromBody] CommentRequestDTO commentRequestDTO)
+        {
+            try
+            {
+                CommentResponseDTO response = _commentService.AddComment(commentRequestDTO);
+                return Ok(response);
+            }
+            catch(Exception e)
+            {
+                return StatusCode(500, new { message = "Erreur serveur - comment"});
+            }
         }
     }
 }
