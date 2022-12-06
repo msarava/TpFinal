@@ -1,5 +1,4 @@
 ﻿using LeBonCoin_Toulouse.DTOs;
-using LeBonCoin_Toulouse.Repositories;
 using LeBonCoin_Toulouse.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +14,7 @@ namespace LeBonCoin_Toulouse.Controllers
         {
             _commentService = commentService;
         }
-        [HttpGet("get")]
+
         public IActionResult Get()
         {
 
@@ -23,7 +22,6 @@ namespace LeBonCoin_Toulouse.Controllers
             return View();
         }
 
-        [HttpGet("postcomment")]
         public IActionResult Post([FromBody] CommentRequestDTO commentRequestDTO)
         {
             try
