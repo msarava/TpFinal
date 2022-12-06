@@ -14,13 +14,13 @@ namespace LeBonCoin_Toulouse.Controllers
         {
             _articleRepository = articleRepository;
         }
-
+        [HttpGet("all")]
         public IActionResult GetAll()
         {
             //TODO: Add services
             return View();
         }
-
+        [HttpGet("getone")]
         public IActionResult GetOne()
         {
             //TODO: Add services

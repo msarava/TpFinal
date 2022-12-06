@@ -17,6 +17,9 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<DataBaseContext>();
 builder.Services.AddScoped<UserAppRepository>();
+builder.Services.AddScoped<CommentRepository>();
+builder.Services.AddScoped<ArticleRepository>();
+builder.Services.AddScoped<ImageRepository>();
 builder.Services.AddScoped<ILogin, LoginJwtService>();
 
 builder.Services.AddAuthentication(a =>

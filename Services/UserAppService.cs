@@ -53,6 +53,7 @@ namespace LeBonCoin_Toulouse.Services
                 }
                 throw new Exception("Modification erreur");
             }
+            throw new Exception("Modification erreur");
         }
 
         public List<UserAppResponseDTO> GetAllUsers()

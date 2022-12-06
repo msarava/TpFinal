@@ -15,7 +15,7 @@ namespace LeBonCoin_Toulouse.Controllers
         {
             _commentService = commentService;
         }
-
+        [HttpGet("get")]
         public IActionResult Get()
         {
 
@@ -23,6 +23,7 @@ namespace LeBonCoin_Toulouse.Controllers
             return View();
         }
 
+        [HttpGet("postcomment")]
         public IActionResult Post([FromBody] CommentRequestDTO commentRequestDTO)
         {
             try
