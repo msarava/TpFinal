@@ -1,7 +1,7 @@
 ﻿using LeBonCoin_Toulouse.Models;
 using Microsoft.Identity.Client;
 
-namespace LeBonCoin_new.DTOs
+namespace LeBonCoin_Toulouse.DTOs
 {
     public class ArticleResponseDTO
     {

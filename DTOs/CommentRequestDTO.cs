@@ -1,6 +1,6 @@
 ﻿using LeBonCoin_Toulouse.Models;
 
-namespace LeBonCoin_new.DTOs
+namespace LeBonCoin_Toulouse.DTOs
 {
     public class CommentRequestDTO
     {

@@ -1,4 +1,4 @@
-﻿namespace LeBonCoin_new.Services.Interfaces
+﻿namespace LeBonCoin_Toulouse.Services.Interfaces
 {
     public interface IUpload
     {

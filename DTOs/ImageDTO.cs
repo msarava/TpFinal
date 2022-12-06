@@ -1,4 +1,4 @@
-﻿namespace LeBonCoin_new.DTOs
+﻿namespace LeBonCoin_Toulouse.DTOs
 {
     public class ImageDTO
     {
