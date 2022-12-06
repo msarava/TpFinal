@@ -32,7 +32,7 @@ builder.Services.AddScoped<ImageRepository>();
 builder.Services.AddScoped<UserAppService>();
 builder.Services.AddScoped<ArticleService>();
 builder.Services.AddScoped<CommentService>();
-builder.Services.AddScoped<UploadService>();
+builder.Services.AddScoped<IUpload, UploadService>();
 
 builder.Services.AddScoped<ILogin, LoginJwtService>();
 

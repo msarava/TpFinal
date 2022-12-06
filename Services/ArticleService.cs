@@ -14,9 +14,11 @@ namespace LeBonCoin_Toulouse.Services
         public ImageRepository _imageRepository;
         private IUpload _upload;
 
-        public ArticleService(ArticleRepository articleRepository, IUpload upload)
+        public ArticleService(ArticleRepository articleRepository, IUpload upload, UserAppRepository userAppRepository, ImageRepository imageRepository)
         {
             _articleRepository = articleRepository;
+            _imageRepository = imageRepository;
+            _userAppRepository = userAppRepository;
             _upload = upload;
         }
 
@@ -172,10 +174,10 @@ namespace LeBonCoin_Toulouse.Services
                 }
                 throw new Exception("Aucun article avec cet id");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw;
-            }            
+            }
         }
     }
 }

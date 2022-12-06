@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace LeBonCoin_Toulouse.Models
 {
@@ -11,6 +12,7 @@ namespace LeBonCoin_Toulouse.Models
         public string Url { get; set; }
 
         //ForeignKey Article
+        [JsonIgnore]
         public Article Article { get; set; }
         [ForeignKey("Article")]
         [Column("article_id")]
