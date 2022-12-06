@@ -19,6 +19,8 @@ namespace LeBonCoin_Toulouse.DTOs
 
         public List<Image> Images { get; set; }
 
+        public List<Comment> Comments { get; set; }
+
         public int UserId { get; set; }
 
         public int CategoryId { get; set; }
