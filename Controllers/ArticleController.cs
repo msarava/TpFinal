@@ -56,7 +56,7 @@ namespace LeBonCoin_Toulouse.Controllers
             {
                 try
                 {
-                    ArticleResponseDTO response = _articleService.UpdateArticle(articleUpdateRequestDto, id);
+                    ArticleUpdateResponseDTO response = _articleService.UpdateArticle(articleUpdateRequestDto, id);
                     return Ok(response);
                 }
                 catch (Exception e)
