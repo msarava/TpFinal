@@ -19,9 +19,9 @@ namespace LeBonCoin_Toulouse.Models
         public int UserAppId { get; set; }
 
         //ForeignKey Article
-        public Article Article { get; set; }
+        public Article? Article { get; set; }
         [ForeignKey("Article")]
         [Column("article_id")]
-        public int ArticleId { get; set; }
+        public int? ArticleId { get; set; }
     }
 }

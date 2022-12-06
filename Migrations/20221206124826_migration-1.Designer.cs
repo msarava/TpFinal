@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LeBonCoinToulouse.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20221206115229_migration-1")]
+    [Migration("20221206124826_migration-1")]
     partial class migration1
     {
         /// <inheritdoc />
@@ -101,7 +101,7 @@ namespace LeBonCoinToulouse.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ArticleId")
+                    b.Property<int?>("ArticleId")
                         .HasColumnType("int")
                         .HasColumnName("article_id");
 
@@ -234,10 +234,8 @@ namespace LeBonCoinToulouse.Migrations
             modelBuilder.Entity("LeBonCoin_Toulouse.Models.Comment", b =>
                 {
                     b.HasOne("LeBonCoin_Toulouse.Models.Article", "Article")
-                        .WithMany()
-                        .HasForeignKey("ArticleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Comments")
+                        .HasForeignKey("ArticleId");
 
                     b.HasOne("LeBonCoin_Toulouse.Models.UserApp", "UserApp")
                         .WithMany()
@@ -274,6 +272,8 @@ namespace LeBonCoinToulouse.Migrations
 
             modelBuilder.Entity("LeBonCoin_Toulouse.Models.Article", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("Images");
                 });
 #pragma warning restore 612, 618

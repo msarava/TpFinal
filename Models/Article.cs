@@ -21,6 +21,9 @@ namespace LeBonCoin_Toulouse.Models
         //List Images
         public List<Image> Images { get; set; }
 
+        //List Comments
+        public List<Comment> Comments { get; set; }
+
         //ForeignKey User
         public UserApp User { get; set; }
         [ForeignKey("User")]

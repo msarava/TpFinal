@@ -100,7 +100,7 @@ namespace LeBonCoinToulouse.Migrations
                     text = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     statuscom = table.Column<string>(name: "status_com", type: "nvarchar(max)", nullable: false),
                     userappid = table.Column<int>(name: "user_app_id", type: "int", nullable: false),
-                    articleid = table.Column<int>(name: "article_id", type: "int", nullable: false)
+                    articleid = table.Column<int>(name: "article_id", type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -109,8 +109,7 @@ namespace LeBonCoinToulouse.Migrations
                         name: "FK_comment_article_article_id",
                         column: x => x.articleid,
                         principalTable: "article",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "id");
                     table.ForeignKey(
                         name: "FK_comment_user_app_user_app_id",
                         column: x => x.userappid,
