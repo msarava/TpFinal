@@ -15,13 +15,20 @@ namespace LeBonCoin_Toulouse.Controllers
             _commentService = commentService;
         }
 
-        public IActionResult Get()
+        [HttpGet]
+        public IActionResult GetAll()
         {
-
-            //TODO: Add services
-            return View();
+            try
+            {
+                List<CommentResponseDTO> response = _commentService.GetAll();
+                return Ok(response);
+            } catch(Exception e)
+            {
+                return StatusCode(500, new { message = "Erreur serveur" });
+            }
         }
 
+        [HttpPost]
         public IActionResult Post([FromBody] CommentRequestDTO commentRequestDTO)
         {
             try
@@ -29,9 +36,23 @@ namespace LeBonCoin_Toulouse.Controllers
                 CommentResponseDTO response = _commentService.AddComment(commentRequestDTO);
                 return Ok(response);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                return StatusCode(500, new { message = "Erreur serveur - comment"});
+                return StatusCode(500, new { message = "Erreur serveur - comment" });
+            }
+        }
+
+        [HttpPut]
+        public IActionResult Put([FromBody] CommentUpdateRequestDTO commentUpdateRequestDTO)
+        {
+            try
+            {
+                CommentResponseDTO response = _commentService.UpdateStatus(commentUpdateRequestDTO);
+                return Ok(response);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, new { message = "Erreur serveur - comment" });
             }
         }
     }
