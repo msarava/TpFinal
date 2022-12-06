@@ -1,5 +1,6 @@
 ﻿using LeBonCoin_Toulouse.Models;
 using LeBonCoin_Toulouse.Tools;
+using Microsoft.EntityFrameworkCore;
 
 namespace LeBonCoin_Toulouse.Repositories
 {
@@ -11,17 +12,20 @@ namespace LeBonCoin_Toulouse.Repositories
 
         public override List<Article> FindAll()
         {
-            throw new NotImplementedException();
+            return _dataBaseContext.Articles.Include(art => art.Comments).ToList();
+
         }
 
         public override Article FindById(int id)
         {
-            throw new NotImplementedException();
+            return _dataBaseContext.Articles.Include(art => art.Comments).FirstOrDefault(art => art != null && art.Id == id);
         }
 
         public override bool Save(Article element)
+
         {
-            throw new NotImplementedException();
+            _dataBaseContext.Articles.Add(element);
+            return Update();
         }
     }
 }

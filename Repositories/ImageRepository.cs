@@ -21,7 +21,8 @@ namespace LeBonCoin_Toulouse.Repositories
 
         public override bool Save(Image element)
         {
-            throw new NotImplementedException();
+            _dataBaseContext.Images.Add(element);
+            return Update();
         }
     }
 }
