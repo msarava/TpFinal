@@ -24,5 +24,11 @@ namespace LeBonCoin_Toulouse.Repositories
             _dataBaseContext.Images.Add(element);
             return Update();
         }
+
+        public override bool Delete(Image element)
+        {
+            _dataBaseContext.Images.Remove(element);
+            return Update();
+        }
     }
 }

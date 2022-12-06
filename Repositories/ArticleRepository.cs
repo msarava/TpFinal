@@ -10,6 +10,12 @@ namespace LeBonCoin_Toulouse.Repositories
         {
         }
 
+        public override bool Delete(Article element)
+        {
+            _dataBaseContext.Articles.Remove(element);
+            return Update();
+        }
+
         public override List<Article> FindAll()
         {
             return _dataBaseContext.Articles.Include(art => art.Comments).ToList();
