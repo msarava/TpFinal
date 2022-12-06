@@ -3,9 +3,9 @@ using LeBonCoin_Toulouse.Tools;
 
 namespace LeBonCoin_Toulouse.Repositories
 {
-    public class UserRepository : BaseRepository<UserApp>
+    public class UserAppRepository : BaseRepository<UserApp>
     {
-        public UserRepository(DataBaseContext dataBaseContext) : base(dataBaseContext)
+        public UserAppRepository(DataBaseContext dataBaseContext) : base(dataBaseContext)
         {
         }
 
@@ -20,6 +20,11 @@ namespace LeBonCoin_Toulouse.Repositories
         }
 
         public override bool Save(UserApp element)
+        {
+            throw new NotImplementedException();
+        }
+
+        public UserApp SearchOne(Func<UserApp, bool> searchMethode)
         {
             throw new NotImplementedException();
         }

@@ -6,40 +6,39 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace LeBonCoin_Toulouse.Services
+namespace LeBonCoin_Toulouse.Services;
+
+public class LoginJwtService : ILogin
 {
-    public class LoginJWTService : ILogin // legacy interface login 
+    private UserAppRepository _repository;
+
+    public LoginJwtService(UserAppRepository repository)
     {
-        private UserAppRepository _repository;
-
-        public LoginJWTService(UserAppRepository repository) // add here => UserAppRepository repository 
+        _repository = repository;
+    }
+    public string Login(string email, string password)
+    {
+        UserApp user = _repository.SearchOne(u => u.Email == email && u.Password == password);
+        if (user != null)
         {
-            _repository = repository;
-        }
-
-        public string Login(string mail, string password)
-        {
-            UserApp user = _repository.SearchOne(user => user.Email == mail && user.Password == password);
-            if(user != null)
+            //Créer le token 
+            JwtSecurityTokenHandler jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
+            SecurityTokenDescriptor securityTokenDescriptor = new SecurityTokenDescriptor()
             {
-                //Create token
-                JwtSecurityTokenHandler jwtServiceTokenHandler = new JwtSecurityTokenHandler();
-                SecurityTokenDescriptor securityTokenDescriptor = new SecurityTokenDescriptor()
-                {
-                    Expires = DateTime.Now.AddHours(1),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Bonjour je suis la clé de sécurité pour générer la JWT")), SecurityAlgorithms.HmacSha256),
-                    Subject = new ClaimsIdentity(new Claim[]
+                Expires = DateTime.Now.AddHours(1),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Bonjour je suis la clé de sécurité pour générer la JWT")), SecurityAlgorithms.HmacSha256),
+                Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Role, user.RoleApp.Role),
-                    new Claim(ClaimTypes.Name, user.LastName)
+                    new Claim(ClaimTypes.Email, user.Email)
                 }),
-                    Issuer = "sogeti",
-                    Audience = "sogeti"
-                };
-                SecurityToken securityToken = JwtSecurityTokenHandler.CreateToken(securityTokenDescriptor);
-                return JwtSecurityTokenHandler.WriteToken(securityToken);
-            }
-            return null,
+                Issuer = "sogeti",
+                Audience = "sogeti"
+
+            };
+            SecurityToken securityToken = jwtSecurityTokenHandler.CreateToken(securityTokenDescriptor);
+            return jwtSecurityTokenHandler.WriteToken(securityToken);
         }
+        return null;
     }
 }

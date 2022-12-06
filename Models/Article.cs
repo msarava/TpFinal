@@ -33,10 +33,5 @@ namespace LeBonCoin_Toulouse.Models
         [Column("category_id")]
         public int CategoryId { get; set; }
 
-        //ForeignKey Comment
-        public Comment Comment { get; set; }
-        [ForeignKey("Comment")]
-        [Column("comment_id")]
-        public int CommentId { get; set; }
     }
 }
