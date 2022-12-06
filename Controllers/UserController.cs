@@ -2,6 +2,7 @@
 using LeBonCoin_Toulouse.Models;
 using LeBonCoin_Toulouse.Repositories;
 using LeBonCoin_Toulouse.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LeBonCoin_Toulouse.Controllers
@@ -12,6 +13,12 @@ namespace LeBonCoin_Toulouse.Controllers
     {
         private UserAppService _userAppService;
 
+        public UserController(UserAppService userAppService)
+        {
+            _userAppService = userAppService;
+        }
+
+        /*[Authorize("")]*/
         [HttpGet()]
         public IActionResult Get()
         {
@@ -26,7 +33,8 @@ namespace LeBonCoin_Toulouse.Controllers
             }
         }
 
-        [HttpPost("{id}")]
+        /*[Authorize("")]*/
+        [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
             try
@@ -40,6 +48,7 @@ namespace LeBonCoin_Toulouse.Controllers
             }
         }
 
+        /*[Authorize("")]*/
         [HttpPut("{id}")]
         public IActionResult ModifyUser(int id, [FromBody] UserAppRequestDTO userAppRequestDTO)
         {
@@ -54,8 +63,23 @@ namespace LeBonCoin_Toulouse.Controllers
             }
         }
 
+        /*[Authorize("")]*/
+        [HttpPut("status/{id}")]
+        public IActionResult ModifyStatusUser(int id, bool status)
+        {
+            try
+            {
+                UserAppResponseDTO response = _userAppService.UpdateStatusUser(id, status);
+                return Ok(response);
+            }
+            catch (Exception e)
+            {
+                return NotFound(new { Message = e.Message });
+            }
+        }
 
-            [HttpPost()]
+        /*[Authorize("")]*/
+        [HttpPost()]
         public IActionResult Create([FromBody] UserAppRequestDTO userAppRequestDTO)
         {
             try

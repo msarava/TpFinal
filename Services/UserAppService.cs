@@ -17,7 +17,7 @@ namespace LeBonCoin_Toulouse.Services
 
         public UserAppResponseDTO AddUser(UserAppRequestDTO userAppRequestDTO)
         {
-            UserApp userApp = new UserApp() { FirstName = userAppRequestDTO.FirstName, LastName = userAppRequestDTO.LastName, Email = userAppRequestDTO.Email, Password = userAppRequestDTO.Password, RoleAppId = userAppRequestDTO.RoleAppId};
+            UserApp userApp = new UserApp() { FirstName = userAppRequestDTO.FirstName, LastName = userAppRequestDTO.LastName, Email = userAppRequestDTO.Email, Password = userAppRequestDTO.Password, RoleAppId = userAppRequestDTO.RoleAppId, StatusUser = false};
             if (_userAppRepository.Save(userApp))
             {
                 return new UserAppResponseDTO() { FirstName = userApp.FirstName, LastName = userApp.LastName, Email = userApp.Email, RoleAppId = userApp.RoleAppId};
@@ -56,10 +56,30 @@ namespace LeBonCoin_Toulouse.Services
             throw new Exception("Modification erreur");
         }
 
+        public UserAppResponseDTO UpdateStatusUser(int id, bool status)
+        {
+            UserApp userApp = _userAppRepository.FindById(id);
+            if (userApp != null)
+            {
+                userApp.StatusUser = status;
+                if (_userAppRepository.Update())
+                {
+                    UserAppResponseDTO response = new UserAppResponseDTO();
+                    response.FirstName = userApp.FirstName;
+                    response.LastName = userApp.LastName;
+                    response.Email = userApp.Email;
+                    response.RoleAppId = userApp.RoleAppId;
+                    return response;
+                }
+                throw new Exception("Modification status erreur");
+            }
+            throw new Exception("Modification status erreur");
+        }
+
         public List<UserAppResponseDTO> GetAllUsers()
         {
             List<UserApp> usersAppList = _userAppRepository.FindAll();
-            List<UserAppResponseDTO> usersAppListResponse = new();
+            List<UserAppResponseDTO> usersAppListResponse = new List<UserAppResponseDTO>();
             if (usersAppList != null)
             {
                 usersAppList.ForEach(ul =>

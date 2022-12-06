@@ -29,6 +29,7 @@ builder.Services.AddScoped<UserAppRepository>();
 builder.Services.AddScoped<CommentRepository>();
 builder.Services.AddScoped<ArticleRepository>();
 builder.Services.AddScoped<ImageRepository>();
+<<<<<<< HEAD
 
  // Services
 builder.Services.AddScoped<UserAppService>();
@@ -36,6 +37,10 @@ builder.Services.AddScoped<ArticleService>();
 builder.Services.AddScoped<CommentService>();
 builder.Services.AddScoped<UploadService>();
 
+=======
+builder.Services.AddScoped<UserAppService>();
+builder.Services.AddScoped<CommentService>();
+>>>>>>> 97c328d3e2e70f78d4c1435dd0e13e87f1a9a092
 builder.Services.AddScoped<ILogin, LoginJwtService>();
 
 builder.Services.AddAuthentication(a =>
