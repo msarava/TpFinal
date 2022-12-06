@@ -2,6 +2,7 @@
 using LeBonCoin_Toulouse.DTOs;
 using LeBonCoin_Toulouse.Models;
 using LeBonCoin_Toulouse.Repositories;
+using System.Collections.Generic;
 
 namespace LeBonCoin_Toulouse.Services
 {
@@ -33,6 +34,40 @@ namespace LeBonCoin_Toulouse.Services
                 return response;
             }
             throw new Exception("Aucun utilisateur avec cet id");
+        }
+
+        public UserAppResponseDTO UpdateUser(int id, UserAppRequestDTO userAppRequestDTO)
+        {
+            UserApp userApp = _userAppRepository.FindById(id);
+            if (userApp != null)
+            {
+                userApp.RoleAppId = userAppRequestDTO.RoleAppId;
+                if (_userAppRepository.Update())
+                {
+                    UserAppResponseDTO response = new UserAppResponseDTO();
+                    response.FirstName = userApp.FirstName;
+                    response.LastName = userApp.LastName;
+                    response.Email = userApp.Email;
+                    response.RoleAppId = userApp.RoleAppId;
+                    return response;
+                }
+                throw new Exception("Modification erreur");
+            }
+        }
+
+        public List<UserAppResponseDTO> GetAllUsers()
+        {
+            List<UserApp> usersAppList = _userAppRepository.FindAll();
+            List<UserAppResponseDTO> usersAppListResponse = new();
+            if (usersAppList != null)
+            {
+                usersAppList.ForEach(ul =>
+                {
+                    usersAppListResponse.Add(new UserAppResponseDTO() { FirstName = ul.FirstName, LastName = ul.LastName, Email = ul.Email, RoleAppId = ul.RoleAppId});
+                });
+                return usersAppListResponse;
+            }
+            throw new Exception("Aucun utilisateur dans la bdd");
         }
     }
 }
