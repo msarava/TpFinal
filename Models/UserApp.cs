@@ -15,6 +15,8 @@ namespace LeBonCoin_Toulouse.Models
         public string Email { get; set; }
         [Column("password")]
         public string Password { get; set; }
+        [Column("status_user")]
+        public bool StatusUser { get; set; }
 
         //ForeignKey RoleApp
         public RoleApp RoleApp { get; set; }
