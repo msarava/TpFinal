@@ -51,7 +51,8 @@ builder.Services.AddAuthentication(a =>
    });
 builder.Services.AddAuthorization((builder) =>
 {
-    builder.AddPolicy("admin", options => { options.RequireRole("admin"); }); builder.AddPolicy("user", options => { options.RequireRole("admin", "user"); });
+    builder.AddPolicy("admin", options => { options.RequireRole("admin"); }); 
+    builder.AddPolicy("user", options => { options.RequireRole("admin", "user"); });
 });
 
 

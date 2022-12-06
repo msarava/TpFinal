@@ -18,7 +18,7 @@ namespace LeBonCoin_Toulouse.Controllers
             _articleService = articleService;
         }
 
-        [Authorize("admin")]
+     //   [Authorize("admin")]
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -36,7 +36,7 @@ namespace LeBonCoin_Toulouse.Controllers
 
         }
 
-        [Authorize("admin")]
+      //  [Authorize("admin")]
         [HttpGet("{id}")]
         public IActionResult GetOne(int id)
         {
@@ -53,14 +53,14 @@ namespace LeBonCoin_Toulouse.Controllers
 
         }
         
-        [Authorize("admin")]
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, ArticleUpdateRequestDTO articleUpdateRequestDto)
+       // [Authorize("admin")]
+        [HttpPut("status/{articleId}")]
+        public IActionResult Put(int articleId, ArticleUpdateRequestDTO articleUpdateRequestDto)
         {
 
             try
             {
-                ArticleUpdateResponseDTO response = _articleService.UpdateArticle(articleUpdateRequestDto, id);
+                ArticleUpdateResponseDTO response = _articleService.UpdateArticle(articleUpdateRequestDto, articleId);
                 return Ok(response);
             }
             catch (Exception e)
@@ -70,7 +70,7 @@ namespace LeBonCoin_Toulouse.Controllers
 
         }
 
-        [Authorize("user")]
+       // [Authorize("admin")]
         [HttpPost("{userId}")]
         public IActionResult Post([FromBody] ArticleRequestDTO articleRequestDto, int userId)
         {
@@ -82,10 +82,25 @@ namespace LeBonCoin_Toulouse.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(500, new { message = "Erreur serveur - comment" });
+                return StatusCode(500, new { message = e.Message });
             }
 
         }
 
+        // [Authorize("user")]
+        [HttpPut("{articleId}/image")]
+        public IActionResult Put(int articleId, IFormFile img)
+        {
+
+            try
+            {
+                    return Ok(_articleService.AddImage(articleId, img));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, new { message = "Erreur serveur - image" });
+            }
+
+        }
     }
 }

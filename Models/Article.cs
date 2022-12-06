@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Xml.Linq;
 
 namespace LeBonCoin_Toulouse.Models
 {
     [Table("article")]
     public class Article
     {
+
         [Column("id")]
         public int Id { get; set; }
         [Column("title")]
@@ -35,6 +37,13 @@ namespace LeBonCoin_Toulouse.Models
         [ForeignKey("Category")]
         [Column("category_id")]
         public int CategoryId { get; set; }
+
+        public Article()
+        {
+             Images = new();
+            Comments = new();
+            AddDate = DateTime.Now;
+        }
 
     }
 }

@@ -10,9 +10,9 @@ namespace LeBonCoin_Toulouse.DTOs
 
         public decimal Price {  get; set; }
 
-        public List<Image> Images { get; set; }
+       // public List<Image> Images { get; set; }
         
-        public int UserId { get; set; }
+   //     public int UserId { get; set; }
 
         public int CategoryId { get; set; }
     }

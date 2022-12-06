@@ -32,10 +32,13 @@ namespace LeBonCoin_Toulouse.Services
                     Title = articleRequestDTO.Title,
                     Description = articleRequestDTO.Description,
                     Price = articleRequestDTO.Price,
-                    Images = articleRequestDTO.Images,
+                   // Images = articleRequestDTO.Images,
                     UserId = user.Id,
                     CategoryId = articleRequestDTO.CategoryId
+                   
+                    
                 };
+
 
                 if (_articleRepository.Save(article))
                 {

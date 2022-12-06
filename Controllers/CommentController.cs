@@ -16,7 +16,7 @@ namespace LeBonCoin_Toulouse.Controllers
             _commentService = commentService;
         }
 
-        [Authorize("admin")]
+      //  [Authorize("admin")]
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -30,7 +30,7 @@ namespace LeBonCoin_Toulouse.Controllers
             }
         }
 
-        [Authorize("user")]
+      //  [Authorize("user")]
         [HttpPost]
         public IActionResult Post([FromBody] CommentRequestDTO commentRequestDTO)
         {
@@ -45,7 +45,7 @@ namespace LeBonCoin_Toulouse.Controllers
             }
         }
 
-        [Authorize("admin")]
+      //  [Authorize("admin")]
         [HttpPut("{id}")]
         public IActionResult Put([FromBody] CommentUpdateRequestDTO commentUpdateRequestDTO, int id)
         {
