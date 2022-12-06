@@ -3,6 +3,7 @@ using LeBonCoin_Toulouse.DTOs;
 using LeBonCoin_Toulouse.Models;
 using LeBonCoin_Toulouse.Repositories;
 using System.Collections.Generic;
+using System.Data;
 
 namespace LeBonCoin_Toulouse.Services
 {
@@ -20,7 +21,7 @@ namespace LeBonCoin_Toulouse.Services
             UserApp userApp = new UserApp() { FirstName = userAppRequestDTO.FirstName, LastName = userAppRequestDTO.LastName, Email = userAppRequestDTO.Email, Password = userAppRequestDTO.Password, RoleAppId = userAppRequestDTO.RoleAppId, StatusUser = false};
             if (_userAppRepository.Save(userApp))
             {
-                return new UserAppResponseDTO() { FirstName = userApp.FirstName, LastName = userApp.LastName, Email = userApp.Email, RoleAppId = userApp.RoleAppId};
+                return new UserAppResponseDTO() { FirstName = userApp.FirstName, LastName = userApp.LastName, Email = userApp.Email, Role = userApp.RoleApp.Role };
             }
             throw new Exception("Erreur serveur de base de données");
         }
@@ -30,7 +31,7 @@ namespace LeBonCoin_Toulouse.Services
             UserApp userApp = _userAppRepository.FindById(id);
             if (userApp != null)
             {
-                UserAppResponseDTO response = new UserAppResponseDTO() { FirstName = userApp.FirstName, LastName = userApp.LastName, Email = userApp.Email, RoleAppId = userApp.RoleAppId};
+                UserAppResponseDTO response = new UserAppResponseDTO() { FirstName = userApp.FirstName, LastName = userApp.LastName, Email = userApp.Email, Role = userApp.RoleApp.Role};
                 return response;
             }
             throw new Exception("Aucun utilisateur avec cet id");
@@ -48,7 +49,7 @@ namespace LeBonCoin_Toulouse.Services
                     response.FirstName = userApp.FirstName;
                     response.LastName = userApp.LastName;
                     response.Email = userApp.Email;
-                    response.RoleAppId = userApp.RoleAppId;
+                    response.Role = userApp.RoleApp.Role;
                     return response;
                 }
                 throw new Exception("Modification erreur");
@@ -68,7 +69,7 @@ namespace LeBonCoin_Toulouse.Services
                     response.FirstName = userApp.FirstName;
                     response.LastName = userApp.LastName;
                     response.Email = userApp.Email;
-                    response.RoleAppId = userApp.RoleAppId;
+                    response.Role = userApp.RoleApp.Role;
                     return response;
                 }
                 throw new Exception("Modification status erreur");
@@ -84,7 +85,7 @@ namespace LeBonCoin_Toulouse.Services
             {
                 usersAppList.ForEach(ul =>
                 {
-                    usersAppListResponse.Add(new UserAppResponseDTO() { FirstName = ul.FirstName, LastName = ul.LastName, Email = ul.Email, RoleAppId = ul.RoleAppId});
+                    usersAppListResponse.Add(new UserAppResponseDTO() { FirstName = ul.FirstName, LastName = ul.LastName, Email = ul.Email, Role = ul.RoleApp.Role });
                 });
                 return usersAppListResponse;
             }
