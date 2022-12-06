@@ -14,7 +14,6 @@ namespace LeBonCoin_Toulouse.Services
         {
             _commentRepository = commentRepository;
             _articleRepository = articleRepository;
-            _userAppRepository = userAppRepository;
 
         }
 
@@ -23,8 +22,7 @@ namespace LeBonCoin_Toulouse.Services
             Article article = _articleRepository.FindById(commentRequestDto.ArticleId);
           
                 if (article != null)
-                {
-                    
+                { 
                     Comment comment = new Comment()
                     {
                         Article = article,
@@ -33,10 +31,61 @@ namespace LeBonCoin_Toulouse.Services
                         UserAppId = commentRequestDto.UserAppId,
 
                     };
+                if (_commentRepository.Save(comment))
+                {
+                    return new CommentResponseDTO()
+                    {
+                        Id = comment.Id,
+                        Text = comment.Text,
+                        ArticleId = comment.ArticleId,
+                        StatusCom = comment.StatusCom,
+                        UserAppId = comment.UserAppId
+                    };
+                }
+                throw new Exception("Erreur serveur - comment");
 
                 }
                 throw new Exception("Erreur article non trouvé");
             }
          
+        public List<CommentResponseDTO> GetAll()
+        {
+            List<CommentResponseDTO> commentList = new List<CommentResponseDTO>();
+
+            _commentRepository.FindAll().ForEach(comment =>
+            {
+                CommentResponseDTO commentResponseDTO = new()
+                {
+                    ArticleId = comment.ArticleId,
+                    Text = comment.Text,
+                    StatusCom = comment.StatusCom,
+                    UserAppId = comment.UserAppId,
+                    Id = comment.Id
+                };
+                commentList.Add(commentResponseDTO);
+            });
+            return commentList;
+        }
+
+        public CommentResponseDTO UpdateStatus(CommentUpdateRequestDTO commentUpdateRequestDTO)
+        {
+            Comment comment = _commentRepository.FindById(commentUpdateRequestDTO.Id);
+
+            if(comment != null)
+            {
+                comment.StatusCom = commentUpdateRequestDTO.StatusCom;
+                _commentRepository.Update();
+
+                return new CommentResponseDTO()
+                {
+                    Id= comment.Id,
+                    Text = comment.Text,
+                    StatusCom = comment.StatusCom,
+                    UserAppId = comment.UserAppId,
+                    ArticleId = comment.ArticleId
+                };
+            }
+            throw new Exception("Erreur Serveur");
+        }
     }
 }
