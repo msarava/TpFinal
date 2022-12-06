@@ -29,14 +29,10 @@ builder.Services.AddScoped<UserAppRepository>();
 builder.Services.AddScoped<CommentRepository>();
 builder.Services.AddScoped<ArticleRepository>();
 builder.Services.AddScoped<ImageRepository>();
-
-
- // Services
 builder.Services.AddScoped<UserAppService>();
 builder.Services.AddScoped<ArticleService>();
 builder.Services.AddScoped<CommentService>();
 builder.Services.AddScoped<UploadService>();
-
 
 builder.Services.AddScoped<ILogin, LoginJwtService>();
 
