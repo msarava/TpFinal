@@ -1,15 +1,16 @@
-﻿namespace LeBonCoin_Toulouse.Repositories
+﻿using LeBonCoin_Toulouse.Tools;
+
+namespace LeBonCoin_Toulouse.Repositories
 {
-    public class BaseRepository<T>
+    public abstract class BaseRepository<T>
     {
         protected DataBaseContext _dataBaseContext;
 
-    /*    protected BaseRepository(DataBaseContext dataBaseContext)
+        protected BaseRepository(DataBaseContext dataBaseContext)
         {
             _dataBaseContext = dataBaseContext;
-        }*/
+        }
 
-        //coucou 
 
         public abstract bool Save(T element);
         public abstract T FindById(int id);

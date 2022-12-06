@@ -1,6 +1,8 @@
-﻿namespace LeBonCoin_Toulouse.Repositories
+﻿using LeBonCoin_Toulouse.Models;
+
+namespace LeBonCoin_Toulouse.Repositories
 {
-    public class ArticleRepository
+    public class ArticleRepository:BaseRepository<Article>
     {
     }
 }
