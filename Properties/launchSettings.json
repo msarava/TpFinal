@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "LeBonCoin_new": {
+    "LeBonCoin_Toulouse": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
