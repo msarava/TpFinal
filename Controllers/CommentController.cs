@@ -1,5 +1,6 @@
 ﻿using LeBonCoin_Toulouse.DTOs;
 using LeBonCoin_Toulouse.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LeBonCoin_Toulouse.Controllers
@@ -15,6 +16,7 @@ namespace LeBonCoin_Toulouse.Controllers
             _commentService = commentService;
         }
 
+        [Authorize("admin")]
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -28,6 +30,7 @@ namespace LeBonCoin_Toulouse.Controllers
             }
         }
 
+        [Authorize("user")]
         [HttpPost]
         public IActionResult Post([FromBody] CommentRequestDTO commentRequestDTO)
         {
@@ -42,6 +45,7 @@ namespace LeBonCoin_Toulouse.Controllers
             }
         }
 
+        [Authorize("admin")]
         [HttpPut("{id}")]
         public IActionResult Put([FromBody] CommentUpdateRequestDTO commentUpdateRequestDTO, int id)
         {

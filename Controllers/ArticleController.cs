@@ -1,6 +1,7 @@
 ﻿using LeBonCoin_Toulouse.DTOs;
 using LeBonCoin_Toulouse.Repositories;
 using LeBonCoin_Toulouse.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LeBonCoin_Toulouse.Controllers
@@ -17,6 +18,7 @@ namespace LeBonCoin_Toulouse.Controllers
             _articleService = articleService;
         }
 
+        [Authorize("admin")]
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -34,6 +36,7 @@ namespace LeBonCoin_Toulouse.Controllers
 
         }
 
+        [Authorize("admin")]
         [HttpGet("{id}")]
         public IActionResult GetOne(int id)
         {
@@ -49,7 +52,8 @@ namespace LeBonCoin_Toulouse.Controllers
             }
 
         }
-
+        
+        [Authorize("admin")]
         [HttpPut("{id}")]
         public IActionResult Put(int id, ArticleUpdateRequestDTO articleUpdateRequestDto)
         {
@@ -66,6 +70,7 @@ namespace LeBonCoin_Toulouse.Controllers
 
         }
 
+        [Authorize("user")]
         [HttpPost("{userId}")]
         public IActionResult Post([FromBody] ArticleRequestDTO articleRequestDto, int userId)
         {

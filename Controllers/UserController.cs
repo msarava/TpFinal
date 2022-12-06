@@ -18,7 +18,7 @@ namespace LeBonCoin_Toulouse.Controllers
             _userAppService = userAppService;
         }
 
-        /*[Authorize("")]*/
+        [Authorize("admin")]
         [HttpGet()]
         public IActionResult Get()
         {
@@ -33,7 +33,7 @@ namespace LeBonCoin_Toulouse.Controllers
             }
         }
 
-        /*[Authorize("")]*/
+        [Authorize("admin")]
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
@@ -48,7 +48,7 @@ namespace LeBonCoin_Toulouse.Controllers
             }
         }
 
-        /*[Authorize("")]*/
+        [Authorize("admin")]
         [HttpPut("{id}")]
         public IActionResult ModifyUser(int id, [FromBody] UserAppRequestDTO userAppRequestDTO)
         {
@@ -63,7 +63,7 @@ namespace LeBonCoin_Toulouse.Controllers
             }
         }
 
-        /*[Authorize("")]*/
+        [Authorize("admin")]
         [HttpPut("status/{id}")]
         public IActionResult ModifyStatusUser(int id, bool status)
         {
@@ -78,7 +78,7 @@ namespace LeBonCoin_Toulouse.Controllers
             }
         }
 
-        /*[Authorize("")]*/
+        [Authorize("admin")]
         [HttpPost()]
         public IActionResult Create([FromBody] UserAppRequestDTO userAppRequestDTO)
         {
