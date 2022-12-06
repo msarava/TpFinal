@@ -8,6 +8,7 @@ namespace LeBonCoin_Toulouse.Services
     public class ArticleService
     {
         private ArticleRepository _articleRepository;
+        public UserAppRepository _userAppRepository;
         private IUpload _upload;
 
         public ArticleService(ArticleRepository articleRepository, IUpload upload)
@@ -16,32 +17,38 @@ namespace LeBonCoin_Toulouse.Services
             _upload = upload;
         }
 
-        public ArticleResponseDTO AddArticle(ArticleRequestDTO articleRequestDTO)
+        public ArticleResponseDTO AddArticle(ArticleRequestDTO articleRequestDTO, int id)
         {
-            Article article = new Article()
+            UserApp user = _userAppRepository.FindById(id);
+            if (user != null)
             {
-                Title = articleRequestDTO.Title,
-                Description = articleRequestDTO.Description,
-                Price = articleRequestDTO.Price,
-                Images = articleRequestDTO.Images,
-                UserId = articleRequestDTO.UserId,
-                CategoryId = articleRequestDTO.CategoryId
-            };
-            if(_articleRepository.Save(article))
-            {
-                return new ArticleResponseDTO()
+                Article article = new Article()
                 {
-                    Id = article.Id,
-                    Title = article.Title,
-                    Description = article.Description,
-                    Price = article.Price,
-                    AddDate = article.AddDate,
-                    StatusArticle = article.StatusArticle,
-                    UserId = article.UserId,
-                    CategoryId = article.CategoryId
+                    Title = articleRequestDTO.Title,
+                    Description = articleRequestDTO.Description,
+                    Price = articleRequestDTO.Price,
+                    Images = articleRequestDTO.Images,
+                    UserId = user.Id,
+                    CategoryId = articleRequestDTO.CategoryId
                 };
+
+                if (_articleRepository.Save(article))
+                {
+                    return new ArticleResponseDTO()
+                    {
+                        Id = article.Id,
+                        Title = article.Title,
+                        Description = article.Description,
+                        Price = article.Price,
+                        AddDate = article.AddDate,
+                        StatusArticle = article.StatusArticle,
+                        UserId = article.UserId,
+                        CategoryId = article.CategoryId
+                    };
+                }
+                throw new Exception("Erreur serveur database");
             }
-            throw new Exception("Erreur serveur database");
+            throw new Exception("Aucun user avec cet id");            
         }
 
         public List<ArticleResponseDTO> GetAll()
