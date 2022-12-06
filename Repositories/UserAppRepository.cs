@@ -30,5 +30,11 @@ namespace LeBonCoin_Toulouse.Repositories
         {
             return _dataBaseContext.UsersApp.Include(u => u.RoleApp).Where(searchMethode).First();
         }
+
+        public override bool Delete(UserApp element)
+        {
+            _dataBaseContext.UsersApp.Remove(element);
+            return Update();
+        }
     }
 }

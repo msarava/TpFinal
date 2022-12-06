@@ -11,7 +11,6 @@ namespace LeBonCoin_Toulouse.Repositories
             _dataBaseContext = dataBaseContext;
         }
 
-
         public abstract bool Save(T element);
         public abstract T FindById(int id);
         public abstract List<T> FindAll();
@@ -20,5 +19,6 @@ namespace LeBonCoin_Toulouse.Repositories
         {
             return _dataBaseContext.SaveChanges() > 0;
         }
+        public abstract bool Delete(T element);
     }
 }

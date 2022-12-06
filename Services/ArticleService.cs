@@ -3,6 +3,7 @@ using LeBonCoin_Toulouse.Models;
 using LeBonCoin_Toulouse.DTOs;
 using LeBonCoin_Toulouse.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace LeBonCoin_Toulouse.Services
 {
@@ -10,6 +11,7 @@ namespace LeBonCoin_Toulouse.Services
     {
         private ArticleRepository _articleRepository;
         public UserAppRepository _userAppRepository;
+        public ImageRepository _imageRepository;
         private IUpload _upload;
 
         public ArticleService(ArticleRepository articleRepository, IUpload upload)
@@ -147,12 +149,33 @@ namespace LeBonCoin_Toulouse.Services
                     return response;
 
                 };
-               
+
             }
             throw new Exception("Erreur Serveur");
-
-
-
+        }
+        public bool DeleteArticle(int id)
+        {
+            try
+            {
+                Article article = _articleRepository.FindById(id);
+                if (article != null)
+                {
+                    foreach (Image i in article.Images)
+                    {
+                        _imageRepository.Delete(i);
+                    }
+                    _imageRepository.Update();
+                    if (_articleRepository.Delete(article))
+                    {
+                        return _articleRepository.Update();
+                    }
+                }
+                throw new Exception("Aucun article avec cet id");
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }            
         }
     }
 }

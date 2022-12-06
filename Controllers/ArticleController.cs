@@ -16,6 +16,7 @@ namespace LeBonCoin_Toulouse.Controllers
         {
             _articleService = articleService;
         }
+        
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -50,12 +51,12 @@ namespace LeBonCoin_Toulouse.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id)
+        public IActionResult Put(int id, ArticleUpdateRequestDTO articleUpdateRequestDto)
         {
             {
                 try
                 {
-                    ArticleResponseDTO response = _articleService.UpdateArticle(id);
+                    ArticleResponseDTO response = _articleService.UpdateArticle(articleUpdateRequestDto, id);
                     return Ok(response);
                 }
                 catch (Exception e)
