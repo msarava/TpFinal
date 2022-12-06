@@ -2,6 +2,7 @@
 using LeBonCoin_Toulouse.Models;
 using LeBonCoin_Toulouse.DTOs;
 using LeBonCoin_Toulouse.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace LeBonCoin_Toulouse.Services
@@ -50,7 +51,7 @@ namespace LeBonCoin_Toulouse.Services
                 }
                 throw new Exception("Erreur serveur database");
             }
-            throw new Exception("Aucun user avec cet id");            
+            throw new Exception("Aucun user avec cet id");
         }
 
         public List<ArticleResponseDTO> GetAll()
@@ -71,7 +72,7 @@ namespace LeBonCoin_Toulouse.Services
                 };
                 a.Images.ForEach(i =>
                 {
-                    response.Images.Add(new Image(){Url = i.Url });
+                    response.Images.Add(new Image() { Url = i.Url });
                 });
                 a.Comments.ForEach(c =>
                 {
@@ -85,7 +86,7 @@ namespace LeBonCoin_Toulouse.Services
         public ArticleResponseDTO GetById(int id)
         {
             Article article = _articleRepository.FindById(id);
-            if(article != null)
+            if (article != null)
             {
                 ArticleResponseDTO response = new ArticleResponseDTO()
                 {
@@ -116,7 +117,7 @@ namespace LeBonCoin_Toulouse.Services
             try
             {
                 Article article = _articleRepository.FindById(id);
-                if(article != null)
+                if (article != null)
                 {
                     Image image = new Image() { Url = _upload.UploadImage(img) };
                     article.Images.Add(image);
@@ -124,12 +125,34 @@ namespace LeBonCoin_Toulouse.Services
                 }
                 throw new Exception("Aucun article avec cet id");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw;
             }
         }
 
+        public ArticleUpdateResponseDTO UpdateArticle(ArticleUpdateRequestDTO articleUpdateRequestDTO, int article_id)
+        {
+
+            Article article = _articleRepository.FindById(article_id);
+
+            if (article != null)
+            {
+                article.StatusArticle = articleUpdateRequestDTO.StatusArticle;
+                if (_articleRepository.Update())
+                {
+                    ArticleUpdateResponseDTO response = new()
+                    {
+                        Id = article.Id,
+                        StatusArticle = article.StatusArticle
+                    };
+                    return response;
+
+                };
+
+            }
+            throw new Exception("Erreur Serveur");
+        }
         public bool DeleteArticle(int id)
         {
             try
