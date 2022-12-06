@@ -42,12 +42,12 @@ namespace LeBonCoin_Toulouse.Controllers
             }
         }
 
-        [HttpPut]
-        public IActionResult Put([FromBody] CommentUpdateRequestDTO commentUpdateRequestDTO)
+        [HttpPut("{id}")]
+        public IActionResult Put([FromBody] CommentUpdateRequestDTO commentUpdateRequestDTO, int id)
         {
             try
             {
-                CommentResponseDTO response = _commentService.UpdateStatus(commentUpdateRequestDTO);
+                CommentResponseDTO response = _commentService.UpdateStatus(commentUpdateRequestDTO, id);
                 return Ok(response);
             }
             catch (Exception e)

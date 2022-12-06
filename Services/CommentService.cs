@@ -67,9 +67,9 @@ namespace LeBonCoin_Toulouse.Services
             return commentList;
         }
 
-        public CommentResponseDTO UpdateStatus(CommentUpdateRequestDTO commentUpdateRequestDTO)
+        public CommentResponseDTO UpdateStatus(CommentUpdateRequestDTO commentUpdateRequestDTO, int id)
         {
-            Comment comment = _commentRepository.FindById(commentUpdateRequestDTO.Id);
+            Comment comment = _commentRepository.FindById(id);
 
             if(comment != null)
             {
