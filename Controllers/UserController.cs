@@ -2,6 +2,7 @@
 using LeBonCoin_Toulouse.Models;
 using LeBonCoin_Toulouse.Repositories;
 using LeBonCoin_Toulouse.Services;
+using LeBonCoin_Toulouse.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,13 +13,14 @@ namespace LeBonCoin_Toulouse.Controllers
     public class UserController : Controller
     {
         private UserAppService _userAppService;
-
-        public UserController(UserAppService userAppService)
+        private ILogin _login;
+        public UserController(UserAppService userAppService, ILogin login)
         {
             _userAppService = userAppService;
+            _login = login;
         }
 
-     //   [Authorize("admin")]
+        [Authorize("admin")]
         [HttpGet()]
         public IActionResult Get()
         {
@@ -108,6 +110,16 @@ namespace LeBonCoin_Toulouse.Controllers
             }
         }
 
+        [HttpPost("login")]
+        public IActionResult Login([FromForm] string email, [FromForm] string password)
+        {
+            string token = _login.Login(email, password);
+            if (token != null)
+            {
+                return Ok(token);
+            }
+            return StatusCode(401);
+        }
 
     }
 

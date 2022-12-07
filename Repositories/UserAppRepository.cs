@@ -29,6 +29,7 @@ namespace LeBonCoin_Toulouse.Repositories
         public UserApp SearchOne(Func<UserApp, bool> searchMethode)
         {
             return _dataBaseContext.UsersApp.Include(u => u.RoleApp).Where(searchMethode).First();
+            /*return _dataBaseContext.UsersApp.FirstOrDefault(searchMethode);*/
         }
 
         public override bool Delete(UserApp element)
