@@ -20,7 +20,7 @@ namespace LeBonCoin_Toulouse.Controllers
             _login = login;
         }
 
-        [Authorize("admin")]
+        //[Authorize("admin")]
         [HttpGet()]
         public IActionResult Get()
         {
@@ -65,7 +65,7 @@ namespace LeBonCoin_Toulouse.Controllers
             }
         }
 
-      //  [Authorize("admin")]
+        [Authorize("admin")]
         [HttpPut("status/{id}")]
         public IActionResult ModifyStatusUser(int id, bool status)
         {
