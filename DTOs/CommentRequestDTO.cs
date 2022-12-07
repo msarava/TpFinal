@@ -8,7 +8,6 @@ namespace LeBonCoin_Toulouse.DTOs
 
         public int UserAppId { get; set; }
 
-        public int ArticleId { get; set; }
 
     }
 }

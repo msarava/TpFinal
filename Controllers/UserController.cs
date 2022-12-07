@@ -92,5 +92,23 @@ namespace LeBonCoin_Toulouse.Controllers
                 return NotFound(new { Message = e.Message });
             }
         }
+
+        //  [Authorize("admin")]
+        [HttpDelete("{id}")]
+        public IActionResult DeleteUser(int id)
+        {
+            try
+            {
+                return Ok(_userAppService.DeleteUser(id));
+              
+            }
+            catch (Exception e)
+            {
+                return NotFound(new { Message = e.Message });
+            }
+        }
+
+
     }
+
 }

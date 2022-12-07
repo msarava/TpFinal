@@ -31,7 +31,7 @@ namespace LeBonCoin_Toulouse.Services
             UserApp userApp = _userAppRepository.FindById(id);
             if (userApp != null)
             {
-                UserAppResponseDTO response = new UserAppResponseDTO() { FirstName = userApp.FirstName, LastName = userApp.LastName, Email = userApp.Email, Role = userApp.RoleApp.Role};
+                UserAppResponseDTO response = new UserAppResponseDTO() {Id=userApp.Id, FirstName = userApp.FirstName, LastName = userApp.LastName, Email = userApp.Email, Role = userApp.RoleApp.Role};
                 return response;
             }
             throw new Exception("Aucun utilisateur avec cet id");
@@ -46,6 +46,7 @@ namespace LeBonCoin_Toulouse.Services
                 if (_userAppRepository.Update())
                 {
                     UserAppResponseDTO response = new UserAppResponseDTO();
+                    response.Id = userApp.Id;
                     response.FirstName = userApp.FirstName;
                     response.LastName = userApp.LastName;
                     response.Email = userApp.Email;
@@ -66,6 +67,7 @@ namespace LeBonCoin_Toulouse.Services
                 if (_userAppRepository.Update())
                 {
                     UserAppResponseDTO response = new UserAppResponseDTO();
+                    response.Id = userApp.Id;
                     response.FirstName = userApp.FirstName;
                     response.LastName = userApp.LastName;
                     response.Email = userApp.Email;
@@ -85,9 +87,19 @@ namespace LeBonCoin_Toulouse.Services
             {
                 usersAppList.ForEach(ul =>
                 {
-                    usersAppListResponse.Add(new UserAppResponseDTO() { FirstName = ul.FirstName, LastName = ul.LastName, Email = ul.Email, Role = ul.RoleApp.Role });
+                    usersAppListResponse.Add(new UserAppResponseDTO() { Id = ul.Id, FirstName = ul.FirstName, LastName = ul.LastName, Email = ul.Email, Role = ul.RoleApp.Role });
                 });
                 return usersAppListResponse;
+            }
+            throw new Exception("Aucun utilisateur dans la bdd");
+        }
+
+        public bool DeleteUser(int id)
+        {
+            UserApp userApp = _userAppRepository.FindById(id);
+            if (userApp != null)
+            {
+                 return _userAppRepository.Delete(userApp);
             }
             throw new Exception("Aucun utilisateur dans la bdd");
         }

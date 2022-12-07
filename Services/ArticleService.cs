@@ -77,11 +77,11 @@ namespace LeBonCoin_Toulouse.Services
                 };
                 a.Images.ForEach(i =>
                 {
-                    response.Images.Add(new Image() { Url = i.Url });
+                    response.Images.Add(new Image() { Url = i.Url, Id = i.Id, ArticleId = i.ArticleId });
                 });
                 a.Comments.ForEach(c =>
                 {
-                    response.Comments.Add(new Comment() { UserAppId = c.UserAppId, Text = c.Text });
+                    response.Comments.Add(new CommentResponseDTO() { ArticleId = c.ArticleId, UserAppId = c.UserAppId, Text = c.Text, Id = c.Id, StatusCom = c.StatusCom });
                 });
                 responseDtos.Add(response);
             });
@@ -106,11 +106,11 @@ namespace LeBonCoin_Toulouse.Services
                 };
                 article.Images.ForEach(i =>
                 {
-                    response.Images.Add(new Image() { Url = i.Url });
+                    response.Images.Add(new Image() { Url = i.Url, Id = i.Id, ArticleId = i.ArticleId });
                 });
                 article.Comments.ForEach(c =>
                 {
-                    response.Comments.Add(new Comment() { UserAppId = c.UserAppId, Text = c.Text });
+                    response.Comments.Add(new CommentResponseDTO() { ArticleId = c.ArticleId, UserAppId = c.UserAppId, Text = c.Text, Id = c.Id, StatusCom = c.StatusCom });
                 });
                 return response;
             }

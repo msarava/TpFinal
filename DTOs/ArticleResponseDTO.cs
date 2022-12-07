@@ -19,10 +19,16 @@ namespace LeBonCoin_Toulouse.DTOs
 
         public List<Image> Images { get; set; }
 
-        public List<Comment> Comments { get; set; }
+        public List<CommentResponseDTO> Comments { get; set; }
 
         public int UserId { get; set; }
 
         public int CategoryId { get; set; }
+
+       public ArticleResponseDTO()
+        {
+            Images = new List<Image>();
+            Comments = new List<CommentResponseDTO>();
+        }
     }
 }

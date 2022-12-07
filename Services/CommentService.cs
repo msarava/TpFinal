@@ -17,9 +17,9 @@ namespace LeBonCoin_Toulouse.Services
 
         }
 
-        public CommentResponseDTO AddComment(CommentRequestDTO commentRequestDto)
+        public CommentResponseDTO AddComment(CommentRequestDTO commentRequestDto, int articleId)
         {
-            Article article = _articleRepository.FindById(commentRequestDto.ArticleId);
+            Article article = _articleRepository.FindById(articleId);
           
                 if (article != null)
                 { 

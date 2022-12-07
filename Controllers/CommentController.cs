@@ -31,12 +31,12 @@ namespace LeBonCoin_Toulouse.Controllers
         }
 
       //  [Authorize("user")]
-        [HttpPost]
-        public IActionResult Post([FromBody] CommentRequestDTO commentRequestDTO)
+        [HttpPost("{articleId}")]
+        public IActionResult Post([FromBody] CommentRequestDTO commentRequestDTO, int articleId)
         {
             try
             {
-                CommentResponseDTO response = _commentService.AddComment(commentRequestDTO);
+                CommentResponseDTO response = _commentService.AddComment(commentRequestDTO, articleId);
                 return Ok(response);
             }
             catch (Exception e)
