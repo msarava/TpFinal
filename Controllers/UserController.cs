@@ -67,7 +67,7 @@ namespace LeBonCoin_Toulouse.Controllers
 
         [Authorize("admin")]
         [HttpPut("status/{id}")]
-        public IActionResult ModifyStatusUser(int id, bool status)
+        public IActionResult ModifyStatusUser(int id, [FromForm] bool status)
         {
             try
             {
