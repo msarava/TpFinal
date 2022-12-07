@@ -2,6 +2,8 @@
 using LeBonCoin_Toulouse.DTOs;
 using LeBonCoin_Toulouse.Models;
 using LeBonCoin_Toulouse.Repositories;
+using LeBonCoin_Toulouse.Tools;
+using Microsoft.EntityFrameworkCore.Storage;
 using System.Collections.Generic;
 using System.Data;
 
@@ -10,18 +12,22 @@ namespace LeBonCoin_Toulouse.Services
     public class UserAppService
     {
         private UserAppRepository _userAppRepository;
-
-        public UserAppService(UserAppRepository userAppRepository)
+        private DataBaseContext _dataBaseContext;
+        public UserAppService(UserAppRepository userAppRepository, DataBaseContext dataBaseContext)
         {
             _userAppRepository = userAppRepository;
+            _dataBaseContext = dataBaseContext;
         }
 
         public UserAppResponseDTO AddUser(UserAppRequestDTO userAppRequestDTO)
         {
-            UserApp userApp = new UserApp() { FirstName = userAppRequestDTO.FirstName, LastName = userAppRequestDTO.LastName, Email = userAppRequestDTO.Email, Password = userAppRequestDTO.Password, RoleAppId = userAppRequestDTO.RoleAppId, StatusUser = false};
+            RoleApp role = _dataBaseContext.RolesApp.FirstOrDefault(r => r.Id == 2);
+            UserApp userApp = new UserApp() { FirstName = userAppRequestDTO.FirstName, LastName = userAppRequestDTO.LastName, Email = userAppRequestDTO.Email, Password = userAppRequestDTO.Password, RoleApp = role, StatusUser = false};
+            
             if (_userAppRepository.Save(userApp))
             {
-                return new UserAppResponseDTO() { FirstName = userApp.FirstName, LastName = userApp.LastName, Email = userApp.Email, Role = userApp.RoleApp.Role };
+                UserAppResponseDTO response = new UserAppResponseDTO() { Id = userApp.Id, FirstName = userApp.FirstName, LastName = userApp.LastName, Email = userApp.Email, Role = userApp.RoleApp.Role };
+                return response;
             }
             throw new Exception("Erreur serveur de base de données");
         }
