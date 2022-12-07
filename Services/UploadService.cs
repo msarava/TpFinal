@@ -17,7 +17,7 @@ namespace LeBonCoin_Toulouse.Services
         public string UploadImage(IFormFile image)
         {
           string url = "https://utopios.blob.core.windows.net/blob-leboncoin-toulouse/";
-          string fileName = "/"+Guid.NewGuid()+ "-" +image.FileName;
+          string fileName = Guid.NewGuid()+ "-" +image.FileName;
           BlobClient blobClient = _blobContainerClient.GetBlobClient(fileName);
             try
             {
