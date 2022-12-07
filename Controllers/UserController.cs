@@ -35,7 +35,7 @@ namespace LeBonCoin_Toulouse.Controllers
             }
         }
 
-     //   [Authorize("admin")]
+        //   [Authorize("admin")]
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
@@ -50,7 +50,7 @@ namespace LeBonCoin_Toulouse.Controllers
             }
         }
 
-      //  [Authorize("admin")]
+        //  [Authorize("admin")]
         [HttpPut("{id}")]
         public IActionResult ModifyUser(int id, [FromBody] UserAppRequestDTO userAppRequestDTO)
         {
@@ -80,7 +80,7 @@ namespace LeBonCoin_Toulouse.Controllers
             }
         }
 
-    //    [Authorize("admin")]
+        //    [Authorize("admin")]
         [HttpPost()]
         public IActionResult Create([FromBody] UserAppRequestDTO userAppRequestDTO)
         {
@@ -102,7 +102,7 @@ namespace LeBonCoin_Toulouse.Controllers
             try
             {
                 return Ok(_userAppService.DeleteUser(id));
-              
+
             }
             catch (Exception e)
             {
@@ -113,12 +113,21 @@ namespace LeBonCoin_Toulouse.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromForm] string email, [FromForm] string password)
         {
-            string token = _login.Login(email, password);
-            if (token != null)
+            try
             {
-                return Ok(token);
+                LoginResponseDTO response = _login.Login(email, password);
+                if (response.Token != null)
+                {
+                    return Ok(response);
+                }
+                return StatusCode(401);
             }
-            return StatusCode(401);
+            catch (Exception e)
+            {
+                return NotFound(new { Message = e.Message });
+            }
+
+
         }
 
     }

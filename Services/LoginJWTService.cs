@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using LeBonCoin_Toulouse.DTOs;
 
 namespace LeBonCoin_Toulouse.Services;
 
@@ -16,7 +17,7 @@ public class LoginJwtService : ILogin
     {
         _repository = repository;
     }
-    public string Login(string email, string password)
+    public LoginResponseDTO Login(string email, string password)
     {
         UserApp user = _repository.SearchOne(u => u.Email == email && u.Password == password);
         if (user != null)
@@ -37,8 +38,14 @@ public class LoginJwtService : ILogin
 
             };
             SecurityToken securityToken = jwtSecurityTokenHandler.CreateToken(securityTokenDescriptor);
-            return jwtSecurityTokenHandler.WriteToken(securityToken);
+
+            LoginResponseDTO response = new LoginResponseDTO()
+            {
+                Id = user.Id,
+                Token = jwtSecurityTokenHandler.WriteToken(securityToken)
+            };
+            return response;
         }
-        return null;
+        throw new Exception() ;
     }
 }

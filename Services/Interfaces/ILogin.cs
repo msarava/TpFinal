@@ -1,8 +1,10 @@
-﻿namespace LeBonCoin_Toulouse.Services.Interfaces
+﻿using LeBonCoin_Toulouse.DTOs;
+
+namespace LeBonCoin_Toulouse.Services.Interfaces
 {
     public interface ILogin
     {
         // add interface for login with JWT
-        public string Login(string mail, string password);
+        public LoginResponseDTO Login(string mail, string password);
     }
 }
