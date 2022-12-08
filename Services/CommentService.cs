@@ -14,12 +14,14 @@ namespace LeBonCoin_Toulouse.Services
         {
             _commentRepository = commentRepository;
             _articleRepository = articleRepository;
+            _userAppRepository = userAppRepository;
 
         }
 
         public CommentResponseDTO AddComment(CommentRequestDTO commentRequestDto, int articleId)
         {
             Article article = _articleRepository.FindById(articleId);
+            UserApp userApp = _userAppRepository.FindById(commentRequestDto.UserAppId);
           
                 if (article != null)
                 { 
@@ -28,7 +30,7 @@ namespace LeBonCoin_Toulouse.Services
                         Article = article,
                         Text = commentRequestDto.Text,
                         StatusCom = "Pending",
-                        UserAppId = commentRequestDto.UserAppId,
+                        UserAppId = commentRequestDto.UserAppId
 
                     };
                 if (_commentRepository.Save(comment))
@@ -39,7 +41,8 @@ namespace LeBonCoin_Toulouse.Services
                         Text = comment.Text,
                         ArticleId = comment.ArticleId,
                         StatusCom = comment.StatusCom,
-                        UserAppId = comment.UserAppId
+                        UserAppId = comment.UserAppId,
+                        User = userApp
                     };
                 }
                 throw new Exception("Erreur serveur - comment");

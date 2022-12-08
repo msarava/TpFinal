@@ -23,5 +23,6 @@ namespace LeBonCoin_Toulouse.Models
         [ForeignKey("Article")]
         [Column("article_id")]
         public int? ArticleId { get; set; }
+
     }
 }

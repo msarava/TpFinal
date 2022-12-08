@@ -30,7 +30,7 @@ namespace LeBonCoin_Toulouse.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(500, new { message = "Erreur serveur - comment" });
+                return StatusCode(500, new { message = e.Message });
             }
 
 
@@ -48,7 +48,7 @@ namespace LeBonCoin_Toulouse.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(500, new { message = "Erreur serveur - comment" });
+                return StatusCode(500, new { message = e.Message });
             }
 
         }
@@ -65,7 +65,7 @@ namespace LeBonCoin_Toulouse.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(500, new { message = "Erreur serveur - comment" });
+                return StatusCode(500, new { message = e.Message });
             }
 
         }
@@ -98,7 +98,7 @@ namespace LeBonCoin_Toulouse.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(500, new { message = "Erreur serveur - image" });
+                return StatusCode(500, new { message = e.Message });
             }
 
         }
