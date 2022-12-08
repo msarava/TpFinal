@@ -110,7 +110,8 @@ namespace LeBonCoin_Toulouse.Services
                 });
                 article.Comments.ForEach(c =>
                 {
-                    response.Comments.Add(new CommentResponseDTO() { ArticleId = c.ArticleId, UserAppId = c.UserAppId, Text = c.Text, Id = c.Id, StatusCom = c.StatusCom });
+                    UserApp userCom = _userAppRepository.FindById(c.Id);
+                    response.Comments.Add(new CommentResponseDTO() { ArticleId = c.ArticleId, UserAppId = c.UserAppId, Text = c.Text, Id = c.Id, StatusCom = c.StatusCom, User = userCom });
                 });
                 return response;
             }
