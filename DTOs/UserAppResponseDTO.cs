@@ -11,5 +11,6 @@ namespace LeBonCoin_Toulouse.DTOs
 
         public string Email { get; set; }
         public string Role { get; set; }
+        public bool StatusUser { get; set; }
     }
 }

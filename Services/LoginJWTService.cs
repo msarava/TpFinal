@@ -42,7 +42,8 @@ public class LoginJwtService : ILogin
             LoginResponseDTO response = new LoginResponseDTO()
             {
                 Id = user.Id,
-                Token = jwtSecurityTokenHandler.WriteToken(securityToken)
+                Token = jwtSecurityTokenHandler.WriteToken(securityToken),
+                StatusUser = user.StatusUser
             };
             return response;
         }
